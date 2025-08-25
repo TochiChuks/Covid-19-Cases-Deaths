@@ -7,7 +7,7 @@
 
 # 1. Objective
 
-As part of a Data Analyst assignment for a public health agency, I was tasked with building an end-to-end analytics pipeline to monitor and evaluate the impact of COVID-19 globally.
+As part of a Data Analyst project for a public health agency, I was tasked with building an end-to-end analytics pipeline to monitor and evaluate the impact of COVID-19 globally.
 
 The agency needed a centralized reporting system that would:
 
@@ -32,13 +32,15 @@ Columns: date, country, new_cases, total_cases, new_deaths, total_deaths, popula
 
 Confirmed cases
 | Variable | Description |
-| total_cases | Total confirmed cases of COVID-19. Counts can include probable cases, where reported. |
-| new_cases | New confirmed cases of COVID-19. Counts can include probable cases, where reported. In rare cases where our source reports a negative daily change due to a data correction, we set this metric to NA. |
-| total_cases_per_million | Total confirmed cases of COVID-19 per 1,000,000 people. Counts can include probable cases, where reported. |
-| new_cases_per_million | New confirmed cases of COVID-19 per 1,000,000 people. Counts can include probable cases, where reported. |
+| --- | --- |
+| total_cases | Total confirmed cases of COVID-19. Counts can include probable cases, where reported |
+| new_cases | New confirmed cases of COVID-19. Counts can include probable cases, where reported. In rare cases where our source reports a negative daily change due to a data correction, we set this metric to NA |
+| total_cases_per_million | Total confirmed cases of COVID-19 per 1,000,000 people. Counts can include probable cases, where reported |
+| new_cases_per_million | New confirmed cases of COVID-19 per 1,000,000 people. Counts can include probable cases, where reported |
 
 Confirmed deaths
 | Variable | Description |
+| --- | --- |
 | total_deaths | Total deaths attributed to COVID-19. Counts can include probable deaths, where reported. |
 | new_deaths | New deaths attributed to COVID-19. Counts can include probable deaths, where reported. In rare cases where our source reports a negative daily change due to a data correction, we set this metric to NA. |
 | total_deaths_per_million | Total deaths attributed to COVID-19 per 1,000,000 people. Counts can include probable deaths, where reported. |
@@ -119,11 +121,11 @@ SQL Transformations & Creation of Analytical Views
   
 <img width="1032" height="607" alt="Screenshot 2025-08-25 162419" src="https://github.com/user-attachments/assets/5eb74880-7e40-4a14-86d1-3788fc72d042" />
 
-- Top 10 countries by total deaths
+- Top 10 countries by total deaths, excluded aggregate regions (e.g., World, Asia, EU) from country-level views.
 
 <img width="948" height="557" alt="Screenshot 2025-08-25 162540" src="https://github.com/user-attachments/assets/cb704f97-9ed2-4347-b3d2-7cd35ac562b8" />
 
-- Excluded aggregate regions (e.g., World, Asia, EU) from country-level views.
+
 
 Why it matters:
 
