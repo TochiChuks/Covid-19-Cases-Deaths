@@ -31,22 +31,18 @@ Source: Publicly available COVID-19 datasets (aligned with OWID/WHO structures).
 Columns: date, country, new_cases, total_cases, new_deaths, total_deaths, population, etc.
 
 Confirmed cases
-Variable | Description
-total_cases | Total confirmed cases of COVID-19. Counts can include probable cases, where reported.
-new_cases | New confirmed cases of COVID-19. Counts can include probable cases, where reported. In rare cases where our source reports a negative daily change due to a data correction, we set this metric to NA.
-total_cases_per_million | Total confirmed cases of COVID-19 per 1,000,000 people. Counts can include probable cases, where reported.
-new_cases_per_million | New confirmed cases of COVID-19 per 1,000,000 people. Counts can include probable cases, where reported.
+| Variable | Description |
+| total_cases | Total confirmed cases of COVID-19. Counts can include probable cases, where reported. |
+| new_cases | New confirmed cases of COVID-19. Counts can include probable cases, where reported. In rare cases where our source reports a negative daily change due to a data correction, we set this metric to NA. |
+| total_cases_per_million | Total confirmed cases of COVID-19 per 1,000,000 people. Counts can include probable cases, where reported. |
+| new_cases_per_million | New confirmed cases of COVID-19 per 1,000,000 people. Counts can include probable cases, where reported. |
 
 Confirmed deaths
-Variable | Description
-total_deaths | Total deaths attributed to COVID-19. Counts can include probable deaths, where reported.
-new_deaths | New deaths attributed to COVID-19. Counts can include probable deaths, where reported. In rare cases where our source reports a negative daily change due to a data correction, we set this metric to NA.
-total_deaths_per_million | Total deaths attributed to COVID-19 per 1,000,000 people. Counts can include probable deaths, where reported.
-new_deaths_per_million | New deaths attributed to COVID-19 per 1,000,000 people. Counts can include probable deaths, where reported.
-excess_mortality	Percentage difference between the reported number of weekly or monthly deaths in 2020–2021 and the projected number of deaths for the same period based on previous years. For more information, see https://github.com/owid/covid-19-data/tree/master/public/data/excess_mortality
-excess_mortality_cumulative	Percentage difference between the cumulative number of deaths since 1 January 2020 and the cumulative projected deaths for the same period based on previous years. For more information, see https://github.com/owid/covid-19-data/tree/master/public/data/excess_mortality
-excess_mortality_cumulative_absolute	Cumulative difference between the reported number of deaths since 1 January 2020 and the projected number of deaths for the same period based on previous years. For more information, see https://github.com/owid/covid-19-data/tree/master/public/data/excess_mortality
-
+| Variable | Description |
+| total_deaths | Total deaths attributed to COVID-19. Counts can include probable deaths, where reported. |
+| new_deaths | New deaths attributed to COVID-19. Counts can include probable deaths, where reported. In rare cases where our source reports a negative daily change due to a data correction, we set this metric to NA. |
+| total_deaths_per_million | Total deaths attributed to COVID-19 per 1,000,000 people. Counts can include probable deaths, where reported. |
+| new_deaths_per_million | New deaths attributed to COVID-19 per 1,000,000 people. Counts can include probable deaths, where reported. |
 
 
 # 3. Stages
