@@ -1,0 +1,116 @@
+/* ========================================================
+   VIEW 1: GLOBAL TOTALS FROM DAILY FLOWS
+   ======================================================== */
+CREATE OR ALTER VIEW vw_global_totals AS
+SELECT
+    SUM(CAST(new_cases  AS BIGINT))  AS global_cases,
+    SUM(CAST(new_deaths AS BIGINT))  AS global_deaths
+FROM cases_deaths;
+
+/* ========================================================
+   VIEW 2: TOP 10 COUNTRIES BY TOTAL CASES
+   ======================================================== */
+CREATE OR ALTER VIEW vw_top10_total_cases AS
+SELECT  
+    country,
+    SUM(CAST(total_cases AS BIGINT)) AS total_cases
+FROM cases_deaths
+WHERE country NOT LIKE 'World%'
+  AND country NOT LIKE '%income%'
+  AND country NOT IN ('Asia', 'Europe', 'Africa', 'Oceania', 
+                      'North America', 'South America', 'Asia excl. China', 'European Union (27)')
+GROUP BY country
+ORDER BY total_cases DESC
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
+
+
+/* ========================================================
+   VIEW 3: TOP 10 COUNTRIES BY CASE FATALITY RATE
+   ======================================================== */
+CREATE OR ALTER VIEW vw_top10_cfr AS
+SELECT  
+    country,
+    SUM(CAST(total_cases AS BIGINT)) AS total_cases,
+    SUM(CAST(total_deaths AS BIGINT)) AS total_deaths,
+    ROUND(
+        (CAST(SUM(CAST(total_deaths AS BIGINT)) AS FLOAT) * 100.0 /
+         NULLIF(CAST(SUM(CAST(total_cases AS BIGINT)) AS FLOAT), 0)
+        ), 2
+    ) AS case_fatality_rate
+FROM cases_deaths
+WHERE country NOT LIKE 'World%'
+  AND country NOT LIKE '%income%'
+  AND country NOT IN ('Asia', 'Europe', 'Africa', 'Oceania', 
+                      'North America', 'South America', 'Asia excl. China', 'European Union (27)')
+GROUP BY country
+HAVING SUM(CAST(total_cases AS BIGINT)) > 1000
+ORDER BY case_fatality_rate DESC
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
+
+
+/* ========================================================
+   VIEW 4: DAILY GLOBAL CASES & DEATHS TREND
+   ======================================================== */
+CREATE OR ALTER VIEW vw_daily_global_trend AS
+SELECT  
+    date,
+    SUM(CAST(new_cases AS BIGINT)) AS daily_cases_global,
+    SUM(CAST(new_deaths AS BIGINT)) AS daily_deaths_global
+FROM cases_deaths
+GROUP BY date
+ORDER BY date ASC;
+
+
+/* ========================================================
+   VIEW 5: PEAK DAILY CASES PER COUNTRY
+   ======================================================== */
+CREATE OR ALTER VIEW vw_peak_daily_cases AS
+SELECT country, date, new_cases
+FROM (
+    SELECT  
+        country,  
+        date,  
+        new_cases,
+        RANK() OVER (PARTITION BY country ORDER BY new_cases DESC) AS rank_cases
+    FROM cases_deaths
+    WHERE country NOT LIKE 'World%'
+      AND country NOT LIKE '%income%'
+      AND country NOT IN ('Asia', 'Europe', 'Africa', 'Oceania', 
+                          'North America', 'South America', 'Asia excl. China', 'European Union (27)')
+) ranked
+WHERE rank_cases = 1;
+
+
+/* ========================================================
+   VIEW 6: HIGHEST CASES PER MILLION
+   ======================================================== */
+CREATE OR ALTER VIEW vw_highest_cases_per_million AS
+SELECT  
+    country,
+    MAX(total_cases_per_million) AS highest_cases_per_million
+FROM cases_deaths
+WHERE country NOT LIKE 'World%'
+  AND country NOT LIKE '%income%'
+  AND country NOT IN ('Asia', 'Europe', 'Africa', 'Oceania', 
+                      'North America', 'South America', 'Asia excl. China', 'European Union (27)')
+GROUP BY country
+ORDER BY highest_cases_per_million DESC;
+
+
+/* ========================================================
+   VIEW 7: TOP 10 COUNTRIES BY TOTAL DEATHS
+   ======================================================== */
+CREATE OR ALTER VIEW vw_top10_total_deaths AS
+SELECT  
+    country,
+    SUM(CAST(total_deaths AS BIGINT)) AS total_deaths
+FROM cases_deaths
+WHERE country NOT LIKE 'World%'
+  AND country NOT LIKE '%income%'
+  AND country NOT IN ('Asia', 'Europe', 'Africa', 'Oceania', 
+                      'North America', 'South America', 'Asia excl. China', 'European Union (27)')
+GROUP BY country
+ORDER BY total_deaths DESC
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
+
+
