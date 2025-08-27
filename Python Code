@@ -1,0 +1,49 @@
+import pandas as pd
+
+# File name
+filename = 'cases_deaths.csv'
+
+# Loading the neccessary columns
+cols_to_use = [
+    'date', 'country', 'new_cases', 'total_cases', 'new_deaths', 'total_deaths',
+    'new_cases_per_million', 'total_cases_per_million', 'new_deaths_per_million',
+    'total_deaths_per_million', 'cfr'
+]
+
+# Load CSV with selected columns
+covid_df = pd.read_csv(filename, usecols=cols_to_use)
+
+# Preview data
+print(covid_df.head())
+
+
+
+# Filter rows where either new_cases or new_deaths are NOT zero
+covid_df = covid_df[(covid_df['new_cases'] != 0) | (covid_df['new_deaths'] != 0)]
+
+# Check the first few rows after filtering
+print(covid_df.head())
+print(f"Number of rows after filtering: {len(covid_df)}")
+
+
+
+#Replacing all null values with zeros
+covid_df['new_cases'].fillna(0, inplace=True)
+covid_df['new_cases_per_million'].fillna(0, inplace=True)
+covid_df['new_deaths'].fillna(0, inplace=True)
+covid_df['new_deaths_per_million'].fillna(0, inplace=True)
+covid_df['cfr'].fillna(0, inplace=True)
+
+
+
+# Check for duplicate rows
+duplicates = covid_df.duplicated()
+
+# How many duplicates are there?
+num_duplicates = duplicates.sum()
+print(f"Number of duplicate rows: {num_duplicates}")
+
+# If you want to see the duplicate rows themselves:
+duplicate_rows = covid_df[duplicates]
+print(duplicate_rows)
+
